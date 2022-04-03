@@ -36,10 +36,11 @@ extern "C" {
 
 /* USER CODE END Private defines */
 
-void MX_TIM1_Init(void);
+void MX_TIM2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+inline void wait_for_10_ms();
+inline void wait_for_10_us();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -94,7 +94,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI2_Init();
-  MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   uint8_t rx_buffer[2];
   float temperature;
@@ -111,6 +111,8 @@ int main(void)
 	//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 	//	HAL_SPI_Receive(&hspi2, rx_buffer, 2, 1);
 	//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+
+	wait_for_10_ms();
 
 	collect_sample_LL(rx_buffer);
 	// collect_sample_DRA(rx_buffer);
@@ -161,8 +163,9 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 void collect_sample_DRA(uint8_t *rx_buffer) {
-	SET_BIT(SPI2->CR1, SPI_CR1_SPE); // SPI enable
 	WRITE_REG(GPIOB->BSRR, (LL_GPIO_PIN_0 << 16)); // \CS low
+	wait_for_10_us();
+	SET_BIT(SPI2->CR1, SPI_CR1_SPE); // SPI enable
 
 	SPI2->DR = 0x00; // dummy write
 	while ( !READ_BIT(SPI2->SR, SPI_SR_TXE) ); // wait until TXE is set
@@ -177,12 +180,14 @@ void collect_sample_DRA(uint8_t *rx_buffer) {
 	while ( READ_BIT(SPI2->SR, SPI_SR_BSY) ); // wait until BSY is reset
 
 	CLEAR_BIT(SPI2->CR1, SPI_CR1_SPE); // SPI disable
+	wait_for_10_us();
 	WRITE_REG(GPIOB->BSRR, (LL_GPIO_PIN_0)); // \CS high
 }
 
 void collect_sample_LL(uint8_t *rx_buffer) {
-	LL_SPI_Enable(SPI2);
 	WRITE_REG(GPIOB->BSRR, (LL_GPIO_PIN_0 << 16)); // \CS low
+	wait_for_10_us();
+	LL_SPI_Enable(SPI2);
 
 	LL_SPI_TransmitData8(SPI2, 0x00); // dummy write
 	while ( !LL_SPI_IsActiveFlag_TXE(SPI2) ); // wait until TXE is set
@@ -197,6 +202,7 @@ void collect_sample_LL(uint8_t *rx_buffer) {
 	while ( !LL_SPI_IsActiveFlag_BSY(SPI2) ); // wait until BSY is reset
 
 	LL_SPI_Disable(SPI2); // SPI disable
+	wait_for_10_us();
 	WRITE_REG(GPIOB->BSRR, (LL_GPIO_PIN_0)); // \CS high
 }
 /* USER CODE END 4 */
