@@ -199,7 +199,7 @@ void collect_sample_LL(uint8_t *rx_buffer) {
 	rx_buffer[1] = LL_SPI_ReceiveData8(SPI2); // read DR (clears RXNE)
 
 	while ( !LL_SPI_IsActiveFlag_TXE(SPI2) ); // wait until TXE is set
-	while ( !LL_SPI_IsActiveFlag_BSY(SPI2) ); // wait until BSY is reset
+	while ( LL_SPI_IsActiveFlag_BSY(SPI2) ); // wait until BSY is reset
 
 	LL_SPI_Disable(SPI2); // SPI disable
 	wait_for_10_us();
