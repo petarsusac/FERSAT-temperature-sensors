@@ -39,8 +39,8 @@ extern "C" {
 void MX_TIM2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-inline void wait_for_10_ms();
-inline void wait_for_10_us();
+void wait_for_10_ms();
+void wait_for_10_us();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

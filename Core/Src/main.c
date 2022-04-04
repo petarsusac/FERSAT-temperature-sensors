@@ -119,7 +119,7 @@ int main(void)
 
 	int16_t tmp = (rx_buffer[0] << 8) | rx_buffer[1];
 
-	if (tmp & (1 << 13) != 0) {
+	if ((tmp & (1 << 13)) != 0) {
 		tmp -= 16384;
 	}
 	temperature = (float)tmp;
@@ -185,7 +185,7 @@ void collect_sample_DRA(uint8_t *rx_buffer) {
 }
 
 void collect_sample_LL(uint8_t *rx_buffer) {
-	WRITE_REG(GPIOB->BSRR, (LL_GPIO_PIN_0 << 16)); // \CS low
+	LL_GPIO_ResetOutputPin(GPIOB, LL_GPIO_PIN_0); // \CS low
 	wait_for_10_us();
 	LL_SPI_Enable(SPI2);
 
@@ -203,7 +203,7 @@ void collect_sample_LL(uint8_t *rx_buffer) {
 
 	LL_SPI_Disable(SPI2); // SPI disable
 	wait_for_10_us();
-	WRITE_REG(GPIOB->BSRR, (LL_GPIO_PIN_0)); // \CS high
+	LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_0); // \CS high
 }
 /* USER CODE END 4 */
 
