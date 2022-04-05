@@ -52,6 +52,9 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void collect_sample_LL(uint8_t *rx_buffer);
 void collect_sample_DRA(uint8_t *rx_buffer);
+
+void wait_for_10_ms();
+void wait_for_10_us();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -195,6 +198,7 @@ void collect_sample_LL(uint8_t *rx_buffer) {
 	while ( !LL_SPI_IsActiveFlag_RXNE(SPI2) ); // wait until RXNE is set
 	rx_buffer[0] = LL_SPI_ReceiveData8(SPI2); // read DR (clears RXNE)
 
+	wait_for_10_us();
 	while ( !LL_SPI_IsActiveFlag_RXNE(SPI2) ); // wait until RXNE is set
 	rx_buffer[1] = LL_SPI_ReceiveData8(SPI2); // read DR (clears RXNE)
 
@@ -204,6 +208,28 @@ void collect_sample_LL(uint8_t *rx_buffer) {
 	LL_SPI_Disable(SPI2); // SPI disable
 	wait_for_10_us();
 	LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_0); // \CS high
+}
+
+void wait_for_10_us() {
+	// 16 MHz APB1 clock before timer prescaler
+	LL_TIM_SetPrescaler(TIM2, 1); // 1 MHz after prescaler
+	LL_TIM_SetAutoReload(TIM2, 1); // set auto-reload value
+	LL_TIM_GenerateEvent_UPDATE(TIM2); // generate update event
+	LL_TIM_ClearFlag_UPDATE(TIM2);
+	LL_TIM_EnableCounter(TIM2); // enable counter
+	while ( !LL_TIM_IsActiveFlag_UPDATE(TIM2) ); // wait for update flag
+	LL_TIM_ClearFlag_UPDATE(TIM2); // clear update flag
+}
+
+void wait_for_10_ms() {
+	// 16 MHz APB1 clock before timer prescaler
+	LL_TIM_SetPrescaler(TIM2, 16); // 1 MHz after prescaler
+	LL_TIM_SetAutoReload(TIM2, 10000); // set auto-reload value
+	LL_TIM_GenerateEvent_UPDATE(TIM2); // generate update event
+	LL_TIM_ClearFlag_UPDATE(TIM2);
+	LL_TIM_EnableCounter(TIM2); // enable counter
+	while ( !LL_TIM_IsActiveFlag_UPDATE(TIM2) ); // wait for update flag
+	LL_TIM_ClearFlag_UPDATE(TIM2); // clear update flag
 }
 /* USER CODE END 4 */
 

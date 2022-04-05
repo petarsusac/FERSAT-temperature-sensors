@@ -56,23 +56,5 @@ void MX_TIM2_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
-void wait_for_10_us() {
-	// 16 MHz APB1 clock before timer prescaler
-	LL_TIM_SetPrescaler(TIM2, 16); // 1 MHz after prescaler
-	LL_TIM_SetAutoReload(TIM2, 10); // set auto-reload value
-	LL_TIM_GenerateEvent_UPDATE(TIM2); // generate update event
-	LL_TIM_EnableCounter(TIM2); // enable counter
-	while ( !LL_TIM_IsActiveFlag_UPDATE(TIM2) ); // wait for update flag
-	LL_TIM_ClearFlag_UPDATE(TIM2); // clear update flag
-}
 
-void wait_for_10_ms() {
-	// 16 MHz APB1 clock before timer prescaler
-	LL_TIM_SetPrescaler(TIM2, 16); // 1 MHz after prescaler
-	LL_TIM_SetAutoReload(TIM2, 10000); // set auto-reload value
-	LL_TIM_GenerateEvent_UPDATE(TIM2); // generate update event
-	LL_TIM_EnableCounter(TIM2); // enable counter
-	while ( !LL_TIM_IsActiveFlag_UPDATE(TIM2) ); // wait for update flag
-	LL_TIM_ClearFlag_UPDATE(TIM2); // clear update flag
-}
 /* USER CODE END 1 */
