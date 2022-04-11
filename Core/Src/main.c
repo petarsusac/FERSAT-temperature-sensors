@@ -54,7 +54,7 @@ void collect_sample_LL(uint8_t *rx_buffer);
 void collect_sample_DRA(uint8_t *rx_buffer);
 
 void wait_for_10_ms();
-void wait_for_10_us();
+static inline void wait_for_10_us();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -210,7 +210,7 @@ void collect_sample_LL(uint8_t *rx_buffer) {
 	LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_0); // \CS high
 }
 
-void wait_for_10_us() {
+static inline void wait_for_10_us() {
 	// 16 MHz APB1 clock before timer prescaler
 	LL_TIM_SetPrescaler(TIM2, 1); // 1 MHz after prescaler
 	LL_TIM_SetAutoReload(TIM2, 1); // set auto-reload value

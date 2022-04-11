@@ -1354,7 +1354,6 @@ LOAD d:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000008000870                collect_sample_LL
  .text.wait_for_10_us
                 0x0000000008000924       0x4c ./Core/Src/main.o
-                0x0000000008000924                wait_for_10_us
  .text.wait_for_10_ms
                 0x0000000008000970       0x4e ./Core/Src/main.o
                 0x0000000008000970                wait_for_10_ms
@@ -1728,18 +1727,18 @@ LOAD d:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_info    0x0000000000003b6b      0xf87 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_tim.o
  .debug_info    0x0000000000004af2      0x943 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.o
 
-.debug_abbrev   0x0000000000000000     0x111f
+.debug_abbrev   0x0000000000000000     0x1135
  .debug_abbrev  0x0000000000000000      0x191 ./Core/Src/gpio.o
- .debug_abbrev  0x0000000000000191      0x2a3 ./Core/Src/main.o
- .debug_abbrev  0x0000000000000434      0x191 ./Core/Src/spi.o
- .debug_abbrev  0x00000000000005c5       0x80 ./Core/Src/stm32f4xx_it.o
- .debug_abbrev  0x0000000000000645      0x116 ./Core/Src/system_stm32f4xx.o
- .debug_abbrev  0x000000000000075b      0x180 ./Core/Src/tim.o
- .debug_abbrev  0x00000000000008db       0x12 ./Core/Startup/startup_stm32f407vgtx.o
- .debug_abbrev  0x00000000000008ed      0x20e ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_gpio.o
- .debug_abbrev  0x0000000000000afb      0x206 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_spi.o
- .debug_abbrev  0x0000000000000d01      0x205 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_tim.o
- .debug_abbrev  0x0000000000000f06      0x219 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.o
+ .debug_abbrev  0x0000000000000191      0x2b9 ./Core/Src/main.o
+ .debug_abbrev  0x000000000000044a      0x191 ./Core/Src/spi.o
+ .debug_abbrev  0x00000000000005db       0x80 ./Core/Src/stm32f4xx_it.o
+ .debug_abbrev  0x000000000000065b      0x116 ./Core/Src/system_stm32f4xx.o
+ .debug_abbrev  0x0000000000000771      0x180 ./Core/Src/tim.o
+ .debug_abbrev  0x00000000000008f1       0x12 ./Core/Startup/startup_stm32f407vgtx.o
+ .debug_abbrev  0x0000000000000903      0x20e ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_gpio.o
+ .debug_abbrev  0x0000000000000b11      0x206 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_spi.o
+ .debug_abbrev  0x0000000000000d17      0x205 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_tim.o
+ .debug_abbrev  0x0000000000000f1c      0x219 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.o
 
 .debug_aranges  0x0000000000000000      0x5d0
  .debug_aranges
